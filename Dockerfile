@@ -10,4 +10,4 @@ RUN cd curl-*/ && ./configure --enable-optimize && make && make install
 # workaround for 'curl: error while loading shared libraries: libcurl.so.4: cannot open shared object file: No such file or directory'
 RUN apt install libcurl4
 
-ENTRYPOINT ["curl"]
+ENTRYPOINT ["curl", "-v"]
