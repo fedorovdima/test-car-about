@@ -25,19 +25,17 @@ jobs:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
 
-      # Runs a single command using the runners shell
-      # Image preparation
-      - name: Build my Docker image
+      # Build a Docker image using Dockerfile and tag is as 'testask'
+      - name: Build Docker image
         run: docker build -t testask .
 
-      # Runs a set of commands using the runners shell
-      # Check if curl version output is correct
-      - name: Check if curl version output is correct
+      # Run checks on commands according to the task
+      - name: Check curl version output
         run: |
           curl_ver=$(curl -s https://api.github.com/repos/curl/curl/releases/latest | grep -m1 -oP '(?<="name": ")[0-9.]+')
           docker run -t --rm testask --version | grep $curl_ver
 
-      - name: Check if curl fetches an URL correctly
+      - name: Check how curl fetches an URL
         run: |
           url="ifconfig.me/ip"
           my_ip=$(curl -s $url)
