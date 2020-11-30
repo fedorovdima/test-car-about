@@ -7,3 +7,7 @@ RUN apt update && DEBIAN_FRONTEND=noninteractive apt build-dep -y curl
 RUN apt install wget && wget -q -O - https://api.github.com/repos/curl/curl/releases/latest | grep -m1 browser_download_url | cut -d '"' -f4 | wget -qi -
 RUN tar xjf curl-*.tar.bz2
 RUN cd curl-*/ && ./configure --enable-optimize && make && make install
+# workaround for 'curl: error while loading shared libraries: libcurl.so.4: cannot open shared object file: No such file or directory'
+RUN apt install libcurl4
+
+ENTRYPOINT ["curl"]
