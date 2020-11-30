@@ -32,7 +32,7 @@ jobs:
 
       # Runs a set of commands using the runners shell
       # Check if curl version output is correct
-      - name: Run a multi-line script
+      - name: Check if curl version output is correct
         run: |
-          curl_ver=$(curl -s https://api.github.com/repos/curl/curl/releases/latest | grep -m1 -oP '(?<="name": ")[0-9.]+')
-          docker run -it testask --version | grep $curl_ver
+          murl_ver=$(curl -s https://api.github.com/repos/curl/curl/releases/latest | grep -m1 -oP '(?<="name": ")[0-9.]+')
+          docker run -t --rm testask --version | grep $curl_ver
